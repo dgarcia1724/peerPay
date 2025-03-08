@@ -13,15 +13,6 @@ export default function BottomNav() {
           Home
         </Link>
 
-        {/* Profile - ME */}
-        <Link
-          href="/me"
-          className="text-[#1DA1F2] font-semibold text-lg flex flex-col items-center min-w-[80px]"
-        >
-          <div className="w-8 h-8 rounded-full bg-[#1DA1F2] mb-1"></div>
-          ME
-        </Link>
-
         {/* Friends */}
         <Link
           href="/friends"
@@ -29,6 +20,15 @@ export default function BottomNav() {
         >
           <div className="text-2xl mb-1">👥</div>
           Friends
+        </Link>
+
+        {/* Profile - ME */}
+        <Link
+          href="/me"
+          className="text-[#1DA1F2] font-semibold text-lg flex flex-col items-center min-w-[80px]"
+        >
+          <div className="w-8 h-8 rounded-full bg-[#1DA1F2] mb-1"></div>
+          ME
         </Link>
       </div>
     </nav>
