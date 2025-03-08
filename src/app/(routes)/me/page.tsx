@@ -62,7 +62,7 @@ export default function MePage() {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
           placeholder="Enter amount"
-          className="w-full p-3 border border-gray-400 rounded-full text-center mb-4 placeholder:text-gray-600 text-gray-900"
+          className="w-full p-3 border border-gray-400 rounded-full text-center mb-4 placeholder:text-gray-600 text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1DA1F2] focus:border-transparent"
         />
       </div>
 
@@ -70,7 +70,7 @@ export default function MePage() {
       <div className="flex gap-4 w-full max-w-xs">
         <button
           onClick={() => handleTransaction("deposit")}
-          className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2"
+          className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-[#1A91DA] active:bg-[#1681BF] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1DA1F2]"
         >
           <span className="text-xl">⬆️</span>
           Deposit
@@ -78,7 +78,7 @@ export default function MePage() {
 
         <button
           onClick={() => handleTransaction("withdraw")}
-          className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2"
+          className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-[#1A91DA] active:bg-[#1681BF] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1DA1F2]"
         >
           <span className="text-xl">⬇️</span>
           Withdraw
