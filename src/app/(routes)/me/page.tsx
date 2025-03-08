@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useBalanceStore } from "@/store/useBalanceStore";
 import { useUserStore } from "@/store/useUserStore";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function MePage() {
   const { balance, deposit, withdraw } = useBalanceStore();
-  const { username, avatarUrl } = useUserStore();
+  const { displayName, username, avatarUrl } = useUserStore();
   const [amount, setAmount] = useState<string>("");
 
   const handleTransaction = (type: "deposit" | "withdraw") => {
@@ -44,15 +45,26 @@ export default function MePage() {
             priority
           />
         </div>
-        <h2 className="text-xl font-semibold text-gray-900">{username}</h2>
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900">{displayName}</h2>
+          <p className="text-sm text-gray-600">@{username}</p>
+        </div>
       </div>
 
       {/* Balance Display */}
       <div className="text-center">
         <p className="text-sm text-gray-600 mb-1">Current Balance</p>
-        <h1 className="text-4xl font-bold text-[#14171A]">
-          ${balance.toFixed(2)}
-        </h1>
+        <AnimatePresence mode="wait">
+          <motion.h1
+            key={balance}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="text-4xl font-bold text-[#14171A]"
+          >
+            ${balance.toFixed(2)}
+          </motion.h1>
+        </AnimatePresence>
       </div>
 
       {/* Amount Input */}
@@ -68,21 +80,23 @@ export default function MePage() {
 
       {/* Action Buttons */}
       <div className="flex gap-4 w-full max-w-xs">
-        <button
+        <motion.button
+          whileTap={{ scale: 0.95 }}
           onClick={() => handleTransaction("deposit")}
           className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-[#1A91DA] active:bg-[#1681BF] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1DA1F2]"
         >
           <span className="text-xl">⬆️</span>
           Deposit
-        </button>
+        </motion.button>
 
-        <button
+        <motion.button
+          whileTap={{ scale: 0.95 }}
           onClick={() => handleTransaction("withdraw")}
           className="flex-1 bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-[#1A91DA] active:bg-[#1681BF] transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1DA1F2]"
         >
           <span className="text-xl">⬇️</span>
           Withdraw
-        </button>
+        </motion.button>
       </div>
     </div>
   );
