@@ -9,7 +9,7 @@ export default function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
-      <div className="flex justify-between items-center max-w-screen-xl mx-auto px-8 py-4">
+      <div className="flex justify-between items-center max-w-screen-xl mx-auto px-8 py-4 relative">
         {/* Home */}
         <Link
           href="/home"
@@ -19,13 +19,15 @@ export default function BottomNav() {
           Home
         </Link>
 
-        {/* Friends */}
+        {/* Send - with protruding circle */}
         <Link
-          href="/friends"
-          className="text-[#1DA1F2] font-semibold text-lg flex flex-col items-center min-w-[80px]"
+          href="/send"
+          className="text-white font-semibold text-lg flex flex-col items-center min-w-[80px] -mt-10"
         >
-          <div className="text-2xl mb-1">👥</div>
-          Friends
+          <div className="bg-[#1DA1F2] w-20 h-20 rounded-full flex flex-col items-center justify-center shadow-lg">
+            <div className="text-2xl mb-0.5">💸</div>
+            <span className="text-sm">Send</span>
+          </div>
         </Link>
 
         {/* Profile - ME */}

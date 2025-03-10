@@ -6,6 +6,7 @@ import { useUserStore } from "@/store/useUserStore";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatCurrency } from "@/utils/format";
+import Link from "next/link";
 
 export default function MePage() {
   const { balance, deposit, withdraw } = useBalanceStore();
@@ -67,6 +68,15 @@ export default function MePage() {
           </motion.h1>
         </AnimatePresence>
       </div>
+
+      {/* Friends Button */}
+      <Link
+        href="/friends"
+        className="w-full max-w-xs bg-white text-[#1DA1F2] py-3 px-4 rounded-full font-semibold flex items-center justify-center gap-2 border-2 border-[#1DA1F2] hover:bg-[#1DA1F2] hover:text-white transition-colors"
+      >
+        <span className="text-xl">👥</span>
+        Friends
+      </Link>
 
       {/* Amount Input */}
       <div className="w-full max-w-xs">
