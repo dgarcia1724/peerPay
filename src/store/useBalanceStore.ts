@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { initialBalance } from "@/data/initialBalance";
 
 interface BalanceStore {
   balance: number;
@@ -7,7 +8,7 @@ interface BalanceStore {
 }
 
 export const useBalanceStore = create<BalanceStore>((set) => ({
-  balance: 1234.56, // Initial balance
+  balance: initialBalance,
   deposit: (amount: number) =>
     set((state) => ({ balance: state.balance + amount })),
   withdraw: (amount: number) =>
