@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { transactions } from "@/data/transactions";
+import { persist } from "zustand/middleware";
+import { transactions as initialTransactions } from "@/data/transactions";
 
 interface User {
   username: string;
@@ -21,16 +22,23 @@ interface TransactionStore {
   addTransaction: (transaction: Omit<Transaction, "id">) => void;
 }
 
-export const useTransactionStore = create<TransactionStore>((set) => ({
-  transactions,
-  addTransaction: (transaction) =>
-    set((state) => ({
-      transactions: [
-        {
-          ...transaction,
-          id: Math.random().toString(36).substr(2, 9),
-        },
-        ...state.transactions,
-      ],
-    })),
-}));
+export const useTransactionStore = create<TransactionStore>()(
+  persist(
+    (set) => ({
+      transactions: initialTransactions,
+      addTransaction: (transaction) =>
+        set((state) => ({
+          transactions: [
+            {
+              ...transaction,
+              id: Math.random().toString(36).substr(2, 9),
+            },
+            ...state.transactions,
+          ],
+        })),
+    }),
+    {
+      name: "transactions-storage",
+    }
+  )
+);
