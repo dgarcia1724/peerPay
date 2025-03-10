@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useTransactionStore } from "@/store/useTransactionStore";
 import { formatDistanceToNow } from "date-fns";
+import { formatCurrency } from "@/utils/format";
 
 export default function TransactionFeed() {
   const { transactions } = useTransactionStore();
@@ -58,7 +59,7 @@ export default function TransactionFeed() {
           >
             <p className="font-semibold">
               {transaction.type === "sent" ? "-" : "+"}$
-              {transaction.amount.toFixed(2)}
+              {formatCurrency(transaction.amount)}
             </p>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useBalanceStore } from "@/store/useBalanceStore";
 import { useUserStore } from "@/store/useUserStore";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatCurrency } from "@/utils/format";
 
 export default function MePage() {
   const { balance, deposit, withdraw } = useBalanceStore();
@@ -62,7 +63,7 @@ export default function MePage() {
             exit={{ opacity: 0, y: -20 }}
             className="text-4xl font-bold text-[#14171A]"
           >
-            ${balance.toFixed(2)}
+            ${formatCurrency(balance)}
           </motion.h1>
         </AnimatePresence>
       </div>
