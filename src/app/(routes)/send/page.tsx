@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 export default function SendPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { withdraw } = useBalanceStore();
+  const { withdraw, balance } = useBalanceStore();
   const { addTransaction } = useTransactionStore();
 
   const [selectedFriend, setSelectedFriend] = useState<
@@ -35,6 +35,12 @@ export default function SendPage() {
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount <= 0) {
       alert("Please enter a valid amount");
+      return;
+    }
+
+    // Check for insufficient funds
+    if (numAmount > balance) {
+      alert("Insufficient funds");
       return;
     }
 
