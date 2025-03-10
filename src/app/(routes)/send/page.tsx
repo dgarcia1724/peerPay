@@ -7,6 +7,7 @@ import { friends } from "@/data/friends";
 import { useTransactionStore } from "@/store/useTransactionStore";
 import { useBalanceStore } from "@/store/useBalanceStore";
 import { useRouter } from "next/navigation";
+import { formatCurrency } from "@/utils/format";
 
 export default function SendPage() {
   const router = useRouter();
@@ -60,6 +61,14 @@ export default function SendPage() {
   return (
     <div className="container mx-auto max-w-lg px-4 py-6">
       <h1 className="text-2xl font-bold text-gray-900 mb-6">Send Money</h1>
+
+      {/* Available Balance */}
+      <div className="bg-gray-50 rounded-lg p-4 mb-6 border border-gray-200">
+        <p className="text-sm text-gray-700 mb-1">Available Balance</p>
+        <p className="text-2xl font-bold text-gray-900">
+          ${formatCurrency(balance)}
+        </p>
+      </div>
 
       <div className="flex flex-col gap-6">
         {/* Friend Selector */}
@@ -116,10 +125,20 @@ export default function SendPage() {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount"
-            className="w-full p-3 border border-gray-400 rounded-lg text-gray-900 placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1DA1F2] focus:border-transparent"
+            className={`w-full p-3 border rounded-lg text-gray-900 placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#1DA1F2] focus:border-transparent ${
+              amount && parseFloat(amount) > balance
+                ? "border-red-500 bg-red-50"
+                : "border-gray-400"
+            }`}
             aria-label="Payment amount"
             required
           />
+          {/* Error Message */}
+          {amount && parseFloat(amount) > balance && (
+            <p className="text-red-500 text-sm mt-1">
+              Amount exceeds available balance
+            </p>
+          )}
         </div>
 
         {/* Description Input */}
@@ -141,11 +160,13 @@ export default function SendPage() {
           className="w-full bg-[#1DA1F2] text-white py-3 px-4 rounded-full font-semibold disabled:bg-gray-400 disabled:cursor-not-allowed hover:bg-[#1A91DA] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#1DA1F2]"
           aria-label={
             selectedFriend
-              ? `Send ${amount || "0.00"} to ${selectedFriend.displayName}`
+              ? `Send ${formatCurrency(parseFloat(amount) || 0)} to ${
+                  selectedFriend.displayName
+                }`
               : "Send payment"
           }
         >
-          Send ${amount || "0.00"}
+          Send ${formatCurrency(parseFloat(amount) || 0)}
         </button>
       </div>
     </div>
