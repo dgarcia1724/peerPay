@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BottomNav from "./components/BottomNav";
+import PageTransition from "./components/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +21,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
@@ -36,7 +37,7 @@ export default function RootLayout({
             </h1>
           </nav>
 
-          {children}
+          <PageTransition>{children}</PageTransition>
 
           <BottomNav />
         </div>
