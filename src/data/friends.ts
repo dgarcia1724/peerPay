@@ -1,9 +1,16 @@
-export const friends = [
+export interface Friend {
+  id: string;
+  username: string;
+  displayName: string;
+  avatarUrl: string;
+}
+
+export const friends: Friend[] = [
   {
     id: "1",
-    username: "emma-rodriguez",
+    username: "emma.rodriguez",
     displayName: "Emma Rodriguez",
-    avatarUrl: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    avatarUrl: "/avatars/emma.jpg",
   },
   {
     id: "2",

@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { useTransactionStore } from "@/store/useTransactionStore";
-import { formatDistanceToNow } from "date-fns";
 import { formatCurrency } from "@/utils/format";
+import TransactionTime from "./TransactionTime";
 
 export default function TransactionFeed() {
   const { transactions } = useTransactionStore();
@@ -47,7 +47,7 @@ export default function TransactionFeed() {
             </p>
             <p className="text-sm text-gray-600">{transaction.description}</p>
             <p className="text-sm text-gray-500">
-              {formatDistanceToNow(transaction.timestamp, { addSuffix: true })}
+              <TransactionTime timestamp={transaction.timestamp} />
             </p>
           </div>
 

@@ -1,9 +1,15 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
-  return (
-    <main className="container mx-auto px-4 py-6">
-      <div className="bg-white">
-        <h2 className="text-xl text-[#14171A] font-sans">Home</h2>
-      </div>
-    </main>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    router.replace("/home");
+  }, [router]);
+
+  // Return null or a loading state while redirecting
+  return null;
 }

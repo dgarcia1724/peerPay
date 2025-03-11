@@ -1,18 +1,20 @@
-import { friends } from "./friends";
+import { Friend, friends } from "./friends";
 
 type TransactionType = "sent" | "received";
 
-// Set base date to current time
-const BASE_DATE = new Date().getTime();
-
-export const transactions: {
+interface Transaction {
   id: string;
   type: TransactionType;
   amount: number;
   timestamp: Date;
   description: string;
-  otherUser: (typeof friends)[0];
-}[] = [
+  otherUser: Friend;
+}
+
+// Set base date to current time
+const BASE_DATE = new Date().getTime();
+
+export const transactions: Transaction[] = [
   {
     id: "1",
     type: "received",
@@ -94,3 +96,6 @@ export const transactions: {
     otherUser: friends[4], // Ava Thompson
   },
 ];
+
+// Export the Transaction type for use in other files
+export type { Transaction };

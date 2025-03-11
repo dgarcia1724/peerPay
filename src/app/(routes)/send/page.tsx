@@ -1,25 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { friends } from "@/data/friends";
+import { Friend, friends } from "@/data/friends";
 import { useTransactionStore } from "@/store/useTransactionStore";
 import { useBalanceStore } from "@/store/useBalanceStore";
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "@/utils/format";
+import toast from "react-hot-toast";
 
-export default function SendPage() {
+function SendPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { withdraw, balance } = useBalanceStore();
   const { addTransaction } = useTransactionStore();
 
-  const [selectedFriend, setSelectedFriend] = useState<
-    (typeof friends)[0] | null
-  >(null);
+  const [selectedFriend, setSelectedFriend] = useState<Friend | null>(null);
   const [amount, setAmount] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+
+  const handleFriendSelect = (friendId: string) => {
+    const friend = friends.find((f) => f.id === friendId);
+    setSelectedFriend(friend || null);
+  };
 
   // Handle friend from URL
   useEffect(() => {
@@ -35,27 +39,34 @@ export default function SendPage() {
 
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount <= 0) {
-      alert("Please enter a valid amount");
+      toast.error("Please enter a valid amount");
       return;
     }
 
     // Check for insufficient funds
     if (numAmount > balance) {
-      alert("Insufficient funds");
+      toast.error("Insufficient funds");
       return;
     }
 
-    // Add transaction and update balance
-    addTransaction({
-      type: "sent",
-      amount: numAmount,
-      timestamp: new Date(),
-      description: description || "💸 Payment sent",
-      otherUser: selectedFriend,
-    });
+    try {
+      // Add transaction and update balance
+      addTransaction({
+        type: "sent",
+        amount: numAmount,
+        timestamp: new Date(),
+        description: description || "💸 Payment sent",
+        otherUser: selectedFriend,
+      });
 
-    withdraw(numAmount);
-    router.push("/home");
+      withdraw(numAmount);
+      toast.success(
+        `Sent $${formatCurrency(numAmount)} to ${selectedFriend.displayName}`
+      );
+      router.push("/home");
+    } catch {
+      toast.error("Failed to send payment. Please try again.");
+    }
   };
 
   return (
@@ -75,11 +86,8 @@ export default function SendPage() {
         {!selectedFriend ? (
           <select
             className="w-full p-3 border border-gray-400 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1DA1F2] focus:border-transparent"
-            onChange={(e) => {
-              const friend = friends.find((f) => f.id === e.target.value);
-              setSelectedFriend(friend || null);
-            }}
-            value={selectedFriend?.id || ""}
+            onChange={(e) => handleFriendSelect(e.target.value)}
+            value=""
             aria-label="Select a friend"
           >
             <option value="">Select a friend</option>
@@ -170,5 +178,13 @@ export default function SendPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+export default function SendPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SendPageContent />
+    </Suspense>
   );
 }

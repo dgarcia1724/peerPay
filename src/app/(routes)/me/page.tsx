@@ -7,6 +7,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatCurrency } from "@/utils/format";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function MePage() {
   const { balance, deposit, withdraw } = useBalanceStore();
@@ -16,21 +17,27 @@ export default function MePage() {
   const handleTransaction = (type: "deposit" | "withdraw") => {
     const numAmount = parseFloat(amount);
     if (isNaN(numAmount) || numAmount <= 0) {
-      alert("Please enter a valid amount");
+      toast.error("Please enter a valid amount");
       return;
     }
 
     if (type === "withdraw" && numAmount > balance) {
-      alert("Insufficient funds");
+      toast.error("Insufficient funds");
       return;
     }
 
-    if (type === "deposit") {
-      deposit(numAmount);
-    } else {
-      withdraw(numAmount);
+    try {
+      if (type === "deposit") {
+        deposit(numAmount);
+        toast.success(`Deposited $${formatCurrency(numAmount)}`);
+      } else {
+        withdraw(numAmount);
+        toast.success(`Withdrew $${formatCurrency(numAmount)}`);
+      }
+      setAmount("");
+    } catch {
+      toast.error(`Failed to ${type}. Please try again.`);
     }
-    setAmount("");
   };
 
   return (
