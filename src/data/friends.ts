@@ -10,7 +10,7 @@ export const friends: Friend[] = [
     id: "1",
     username: "emma.rodriguez",
     displayName: "Emma Rodriguez",
-    avatarUrl: "/avatars/emma.jpg",
+    avatarUrl: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
   },
   {
     id: "2",
