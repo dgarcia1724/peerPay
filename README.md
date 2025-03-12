@@ -1,6 +1,10 @@
 # PeerPay
 
-A modern peer-to-peer payment application built with Next.js 15 and React 19.
+A modern peer-to-peer payment application built with Next.js 15 and React 19. Send and receive payments with ease through a beautiful, user-friendly interface.
+
+🌐 [Live Demo](https://peer-pay-danny-g.netlify.app/home)
+
+![PeerPay Screenshot](public/screenshot.png)
 
 ## 🚀 Features
 
@@ -12,6 +16,10 @@ A modern peer-to-peer payment application built with Next.js 15 and React 19.
 - Toast notifications with React Hot Toast
 - Date formatting with date-fns
 - Styling with Tailwind CSS
+- Real-time transaction tracking
+- Secure payment processing
+- User-friendly payment history
+- Mobile-responsive design
 
 ## 📋 Prerequisites
 
@@ -25,7 +33,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/peer-pay.git
+git clone https://github.com/dgarcia1724/peerPay.git
 cd peer-pay
 ```
 
@@ -35,13 +43,6 @@ cd peer-pay
 npm install
 # or
 yarn install
-```
-
-3. Create a `.env.local` file in the root directory and add necessary environment variables:
-
-```bash
-# Example environment variables
-NEXT_PUBLIC_API_URL=your_api_url_here
 ```
 
 ## 🚀 Development
@@ -113,6 +114,9 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📫 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
+Danny Garcia - [GitHub](https://github.com/dgarcia1724)
 
-Project Link: [https://github.com/yourusername/peer-pay](https://github.com/yourusername/peer-pay)
+Project Links:
+
+- Repository: [https://github.com/dgarcia1724/peerPay](https://github.com/dgarcia1724/peerPay)
+- Live Demo: [https://peer-pay-danny-g.netlify.app/home](https://peer-pay-danny-g.netlify.app/home)
