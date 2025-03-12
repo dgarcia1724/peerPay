@@ -98,10 +98,6 @@ yarn start
 - [Jest](https://jestjs.io/) - Testing framework
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing utilities
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
